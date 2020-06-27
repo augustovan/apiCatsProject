@@ -1,0 +1,44 @@
+- name: Provision security group 
+  ec2_group:
+    name: "{{ security_group }}"
+    description: security group
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    region: "{{ region }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: all
+        group_name: "{{ security_group }}"
+
+# - name: Provisionando K8-Master-cats
+#   ec2_instance:
+#     aws_access_key: "{{ aws_access_key }}"
+#     aws_secret_key: "{{ aws_secret_key }}"
+#     key_name: "{{ key_name }}"
+#     name: masterApiCats
+#     security_group: "{{ security_group }}"
+#     instance_type: "{{ instance_type }}"
+#     image_id: "{{ image }}"
+#     wait: true
+#      count: 1
+#     state: running
+#     region: "{{ region }}"
+ 
+# - name: Provision K8-Node-cats
+#   ec2_instance:
+#     aws_access_key: "{{ aws_access_key }}"
+#     aws_secret_key: "{{ aws_secret_key }}"
+#     key_name: "{{ key_name }}"
+#     name: NodeApiCats
+#     security_group: "{{ security_group }}"
+#     instance_type: "{{ instance_type }}"
+#     image_id: "{{ image }}"
+#     wait: true
+#     count: 2
+#     state: running
+#     region: "{{ region }}"
+ 
+
