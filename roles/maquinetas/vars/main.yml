@@ -1,7 +1,7 @@
 tag-key: Name 
 tag-value: K8-CatsAPI
 key_name: catsapi
-instance_type: t2.micro
+instance_type: t2.medium
 region: us-east-1
 image: ami-0ac80df6eff0e70b5
 security_group: K8-CatsAPI-SG
