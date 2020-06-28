@@ -1,4 +1,12 @@
-[local]
-localhost ansible_connection=local ansible_python_interpreter=python gather_facts=false
+# Consolidation of all groups
+[hosts:children]
+k8s-master-cats
+k8s-workers-cats
+k8s-workers
 
-[k8-cats]
+[k8s-master-cats]
+
+[k8s-workers-cats]  
+
+[k8s-workers:vars]
+K8S_API_SECURE_PORT=6443 

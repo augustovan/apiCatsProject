@@ -1,0 +1,88 @@
+- name: Provision security group "{{ security_group }}"
+  ec2_group:
+    name: "{{ security_group }}"
+    description: security group API
+    region: "{{ region }}"
+    rules:
+      - proto: tcp
+        from_port: 22
+        to_port: 22
+        cidr_ip: 0.0.0.0/0
+      - proto: all
+        group_name: "{{ security_group }}"
+  register: basic_firewall
+
+- name: Provisionando Maquineta Master
+  ec2:
+    key_name: "{{ key_name }}"    
+    group: "{{ security_group }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ image }}"
+    wait: yes
+    count: 1
+    region: "{{ region }}"
+    monitoring: yes
+    assign_public_ip: yes
+    vpc_subnet_id: subnet-00379b32d29267d44
+    instance_tags:
+        Name: K8-CatsAPI
+  register: ec2
+
+- name: Adicionando a maquineta ao Inventario temp
+  add_host: 
+    hostname: "{{ item.private_ip }}"
+    groupname: catsipa-new
+  with_items: "{{ ec2.instances }}"
+
+- name: Adicionando o ip publico no arquivo hosts
+  lineinfile: 
+    dest: ./inventory/hosts
+    regexp: "{{ item.public_ip }}"
+    insertafter: "k8s-master-cats"
+    line: "{{ item.public_ip }}"
+  with_items: "{{ ec2.instances }}"
+
+- name: Adicionando o ip private no arquivo hosts
+  lineinfile: 
+    dest: ./inventory/hosts
+    regexp: "{{ item.private_ip }}"
+    insertafter: "k8s-workers:vars"
+    line: "K8S_MASTER_NODE_IP={{ item.private_ip }}"
+  with_items: "{{ ec2.instances }}"
+
+- name: Provisionando Maquineta Node
+  ec2:
+    key_name: "{{ key_name }}"    
+    group: "{{ security_group }}"
+    instance_type: "{{ instance_type }}"
+    image: "{{ image }}"
+    wait: yes
+    count: "{{ count }}"
+    region: "{{ region }}"
+    monitoring: yes
+    assign_public_ip: yes
+    vpc_subnet_id: subnet-00379b32d29267d44
+    instance_tags:
+        Name: K8-CatsAPI
+  register: ec2
+
+- name: Adicionando a maquineta ao Inventario temp
+  add_host: 
+    hostname: "{{ item.private_ip }}"
+    groupname: catsipa-new
+  with_items: "{{ ec2.instances }}"
+
+- name: Adicionando o ip publico no arquivo hosts
+  lineinfile: 
+    dest: ./inventory/hosts
+    regexp: "{{ item.public_ip }}"
+    insertafter: "k8s-workers-cats"
+    line: "{{ item.public_ip }}"
+  with_items: "{{ ec2.instances }}"
+
+- name: Esperando o SSH
+  wait_for:
+    host: "{{ item.public_ip }}"
+    port: 22
+    state: started
+  with_items: "{{ ec2.instances }}"
