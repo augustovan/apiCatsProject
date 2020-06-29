@@ -11,7 +11,8 @@
   </a>
 </p>
 
-# Projeto API The Cats
+# Projeto API The Cats  :cat: 
+
 É um projeto que captura dados de uma API chamada de Gatos (https://theca
 
 ## Desafio
@@ -26,7 +27,6 @@ dados. (se disponível)
   
 - Utilizaremos uma ferramenta de métricas _Grafana_ + _Prometheus_, para criar Dash Como estes 
 
-
 ## Tecnologias Utilizadas
 
 Serviço | Tecnologia
@@ -37,6 +37,12 @@ Logs | GrayLog
 Metricas | Prometheus 
 DataBase | MongoDB
 API | NodeJS
+Registrry | Docker hub
+
+## Registry 
+Aqui está o endereço de nosso registry no DockerHub
+
+[Docker-Hub](https://hub.docker.com/u/augustovan)  :whale: 
 
 # Continua....
 
