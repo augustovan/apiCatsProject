@@ -38,6 +38,7 @@ RUN grafana-cli plugins install mxswat-separator-panel
 RUN grafana-cli plugins install flant-statusmap-panel
 RUN grafana-cli plugins install btplc-status-dot-panel
 RUN grafana-cli plugins install scadavis-synoptic-panel
+RUN grafana-cli plugins install kubernetes-app
 RUN grafana-cli plugins install yesoreyeram-boomtable-panel
 
 # Let chamber export secrets as env variables during startup
