@@ -49,3 +49,6 @@ Aqui está o endereço de nosso registry no DockerHub
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
+
+
+
