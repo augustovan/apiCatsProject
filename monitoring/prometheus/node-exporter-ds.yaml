@@ -21,7 +21,7 @@ spec:
       containers:
         - name: prometheus-node-exporter
           # Use the `quay.io/prometheus/node-exporter:v0.17.0` image
-          image: quay.io/prometheus/node-exporter:v0.17.0
+          image: quay.io/prometheus/node-exporter:v1.0.0
           imagePullPolicy: Always
           args:
             - --path.procfs=/host/proc
