@@ -100,6 +100,7 @@ spec:
       name: monitoring-alertmanager-data
     spec:
       storageClassName: do-block-storage
+      volumeMode: Filesystem
       accessModes:
         - ReadWriteOnce
       resources:

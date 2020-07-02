@@ -111,6 +111,7 @@ spec:
       name: monitoring-grafana-data
     spec:
       storageClassName: do-block-storage
+      volumeMode: Filesystem
       accessModes:
         - ReadWriteOnce
       resources:
