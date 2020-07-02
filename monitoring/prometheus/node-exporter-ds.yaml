@@ -1,10 +1,10 @@
 apiVersion: apps/v1
 kind: DaemonSet
 metadata:
-  name: node-exporter
+  name: monitoring-node-exporter
   labels:
     k8s-app: node-exporter
-    app.kubernetes.io/name: apicast
+    app.kubernetes.io/name: monitoring
     app.kubernetes.io/component: node-exporter
 spec:
   updateStrategy:
@@ -20,8 +20,8 @@ spec:
       serviceAccountName: node-exporter
       containers:
         - name: prometheus-node-exporter
-          # 
-          image: augustovan/node-exporter:latest
+          # Use the `quay.io/prometheus/node-exporter:v0.17.0` image
+          image: quay.io/prometheus/node-exporter:v0.17.0
           imagePullPolicy: Always
           args:
             - --path.procfs=/host/proc
