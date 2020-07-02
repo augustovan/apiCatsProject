@@ -95,4 +95,4 @@ spec:
         - ReadWriteOnce
       resources:
         requests:
-          storage: "3Gi"
+          storage: "2Gi"

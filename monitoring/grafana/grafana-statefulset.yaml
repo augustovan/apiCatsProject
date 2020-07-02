@@ -32,7 +32,7 @@ spec:
         - name: grafana
           # The main Grafana container, which uses the `grafana/grafana:6.0.1` image 
           # from https://hub.docker.com/r/grafana/grafana
-          image: grafana/grafana:7.0.3
+          image: augustovan/grafana_cats:latest
           imagePullPolicy: Always
           # Mount in all the previously defined ConfigMaps as `volumeMounts`
           # as well as the Grafana data volume
