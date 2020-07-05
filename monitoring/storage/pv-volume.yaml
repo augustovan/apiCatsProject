@@ -1,15 +1,13 @@
-#kubectl apply -f pv-volume
-apiVersion: v1
 kind: PersistentVolume
-metadata:
-  name: task-pv-volume
+metadata: 
+  name: pv-cats-01
   labels:
-    type: local
+    type: amazonEBS
 spec:
-  storageClassName: manual
   capacity:
-    storage: 2Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "/mnt/data"
+    storage: 10Gi
+  accessModes: 
+  - ReadWriteone
+  awsElasticBlockStore:
+    volumeID: vol-046fa7f2fbdc59c3e
+    fsType: ext4
