@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata: 
-  name: pv-cats-01
+  name: pv-cats-02
   labels:
     type: amazonEBS
 spec:
