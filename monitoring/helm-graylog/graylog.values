@@ -142,8 +142,9 @@ graylog:
   ## A service for Graylog web interface
   ##
   service:
-    type: ClusterIP
+    type: NodePort
     port: 9000
+    targetPort: 9000
     ## Add additional ports for the service/statefulset to expose
     ##
     ports: []
@@ -162,7 +163,7 @@ graylog:
       annotations: {}
       ## Graylog master service port.
       ##
-      port: 9000
+      # port: 9000
 
   ## Additional input ports for receiving logs from servers
   ## Note: Name must be in IANA_SVC_NAME (at most 15 characters, matching regex [a-z0-9]([a-z0-9-]*[a-z0-9])* and it must contains at least one letter [a-z], hyphens cannot be adjacent to other hyphens)
