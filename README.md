@@ -64,3 +64,17 @@ Aqui está o endereço de nosso registry no DockerHub
 
 
 
+
+	![Texto alternativo opcional se a imagem não carregar](http://www.exemplodeurl.com/logo.png)
+
+  	```
+Este é um bloco de código.
+
+```
+
+
+	Este é um "código embutido".
+
+  É assim que se faz texto em **negrito**.
+
+  É assim que se faz texto em *itálico*.
