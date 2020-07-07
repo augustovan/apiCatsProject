@@ -44,6 +44,18 @@ Aqui está o endereço de nosso registry no DockerHub
 
 [Docker-Hub](https://hub.docker.com/u/augustovan)  :whale: 
 
+## Kops
+
+## Helm Install
+ 
+## Deploy Stack Monitoring
+
+# On Primese
+
+## Vagrant
+
+
+
 # Continua....
 
 
