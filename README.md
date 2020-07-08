@@ -200,6 +200,6 @@ Após o prosionamento do cluster k8s será necessario fazer a instalação do He
 
 ## 📝 License
 
-Copyright © 2020 [Victor Nascimento](https://github.com/msfidelis).<br />
+Copyright © 2020 [Victor Nascimento](https://github.com/augustovan).<br />
 This project is [MIT](/LICENSE) licensed.
 
