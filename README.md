@@ -67,8 +67,9 @@ sudo mv ./kops /usr/local/bin/
 ## kubernetes 
 Utilizamos o kubernetes como nosso gerenciador de containers.
 
-	![Topologia Api Cats](https://github.com/augustovan/apiCatsProject/blob/master/fotos/topologia.png)
-
+<img src="fotos/topologia.png"
+     alt="Topologia"
+     style="float: left; margin-right: 10px;" />
 
   ### Arquiterura Kubernetes 
 
