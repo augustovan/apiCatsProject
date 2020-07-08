@@ -29,18 +29,20 @@ dados. (se disponível)
 
 ## Tecnologias Utilizadas
 
-Serviço | Tecnologia
-:-------: | :----------:
-Container runtime | Docker
-Container orchestration | Kubernetes
-Logs | EFK
-Metricas | Prometheus 
-DataBase | MongoDB
-API | NodeJS
-Registrry | Docker hub
+## Stack
+
+| Component                 | Project / Technology                  |
+| --------------------------|---------------------------------------|
+| Automation Tool           | [Kops](https://kops.sigs.k8s.io/)     |
+| Container runtime         | [Docker](https://www.docker.com)      |
+| Container orchestration   | [Kubernetes](https://kubernetes.io)   |
+| Package Manager           | [Helm](https://helm.sh/)              |
+| Registry                  | [DockerHub](https://hub.docker.com/)  |
+| Monitoring                | [Prometheus](https://prometheus.io/)  |
+| Observability             | [EFK](https://www.elastic.co)         |
 
 ## Registry 
-Aqui está o endereço de nosso registry no DockerHub. Lá voce vai encontrar imagens com os pacotes necessarios para funcionar normalmente
+Aqui está o endereço de nosso registry no DockerHub. Lá voce vai encontrar os containers necessario para subir essa stack
 
 [Docker-Hub](https://hub.docker.com/u/augustovan)  :whale: 
 
@@ -161,13 +163,31 @@ Para cada aplicação da Stack de monitoração seria necessario criar 5 arquivo
 Uma forma de centralizar todos os Dashs e um unico ponto escolhi a solução grafana desta forma foi possivel criar os dash de monitoramento dos ambiente do Prometheus (coleta da saude do cluster) e para fazer a coleta dos logs tanto dos clustes como das aplicações foi escolhido a pilha EFK (Elasticsearch, fluentd, Kibana). Vale apena pontuar que mesmo a Kibanada está sendo usado para criar as queries usando KQL e aplicamos como data source no Grafana. 
 
 ### Provisionamento Prometheus
-"código embutido"
+Para provisionar a aplicação Prometheus basta utilizar o comando 
+
+   ```bash
+  kubectl get pv
+  ```
+
+#### graficos Prometheus
+
 ### Provisionamento Grafana 
 "código embutido"
-### Provisionamento EFK
-"código embutido"
+   
+   ```bash
+  kubectl get pv
+  ```
 
-# On Primese
+
+#### graficos Prometheus
+
+### Provisionamento EFK
+
+   ```bash
+  kubectl get pv
+  ```
+
+# On Primese :computer:
 
 ## Ansible
 Para fazer o provisionamento do ambiente em um ambiente on primese vamos utilizar o 
@@ -178,25 +198,8 @@ Para criar o Persistemvolum voce pode criar o PV local ou usar o atributo NFS o 
 Após o prosionamento do cluster k8s será necessario fazer a instalação do Helm e seguir os passos acima Topico do Helm 
 
 
-# Continua....
+## 📝 License
 
+Copyright © 2020 [Victor Nascimento](https://github.com/msfidelis).<br />
+This project is [MIT](/LICENSE) licensed.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
-
-
-
-
-	![Texto alternativo opcional se a imagem não carregar](http://www.exemplodeurl.com/logo.png)
-
-  	```
-Este é um bloco de código.
-
-```
-
-
-	Este é um "código embutido".
-
-  É assim que se faz texto em **negrito**.
-
-  É assim que se faz texto em *itálico*.
