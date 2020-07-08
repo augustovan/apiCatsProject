@@ -118,8 +118,8 @@ Utilizamos o kubernetes como nosso gerenciador de containers.
 
 * Namsespaces (Prometheus, Grafana, EFK, APP)
  ```bash
-  kubectl create ns Prometheus
-  kubectl create ns Grafana
+  kubectl create ns prometheus
+  kubectl create ns grafana
   kubectl create ns EFK
   kubectl create ns APP
   ```
@@ -166,25 +166,44 @@ Uma forma de centralizar todos os Dashs e um unico ponto escolhi a solução gra
 Para provisionar a aplicação Prometheus basta utilizar o comando 
 
    ```bash
-  kubectl get pv
+  helm install stable/prometheus --name prometheus-cats --values prometheus.values --namespace prometheus
   ```
 
 #### graficos Prometheus
+
+<img src="fotos/prometheus-k8s.png"
+     alt="prometheus"
+     style="float: left; margin-right: 10px;" />
 
 ### Provisionamento Grafana 
-"código embutido"
+Para provisionar a aplicação Prometheus basta utilizar o comando 
    
    ```bash
-  kubectl get pv
+  helm install stable/grafana --name grafana-cats --values grafana.values --namespace grafana
   ```
 
+#### graficos Grafana
 
-#### graficos Prometheus
+<img src="fotos/grafana-k8s.png"
+     alt="Grafana"
+     style="float: left; margin-right: 10px;" />
+
+ <img src="fotos/grafana-k8s2.png"
+     alt="Grafana"
+     style="float: left; margin-right: 10px;" />
+
+<img src="fotos/grafana-k8s3.png"
+     alt="Grafana"
+     style="float: left; margin-right: 10px;" />    
 
 ### Provisionamento EFK
+Para provisionar a stak EFK voce deve executando esses 3 comando (diferente do ELK que usa Logstash para coleta dos logs, aqui vamos utilizar o fluentd para coletar logs do Kubernetes)
 
    ```bash
-  kubectl get pv
+  helm install elastic/elasticsearch --name elasticsearch --values elasticsearch.values --namespace efk
+  helm install fluent/fluent-bit  --name fluentdcats --values fluent.values --namespace efk
+  helm install elastic/kibana --name kibanacats --values kibana.values --namespace efk
+
   ```
 
 # On Primese :computer:
