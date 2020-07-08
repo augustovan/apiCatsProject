@@ -63,6 +63,47 @@ sudo mv ./kops /usr/local/bin/
 ```
 ## kops create cluster
 
+1) Criar um S3 bucket para salvar as configs do cluster
+  ```bash
+  aws s3api create-bucket --bucket kubernetes-aws-io
+  ```
+
+2) Ativar o versionamento do Bucket caso haja necessidade de voltar para versão anterior 
+
+  ```bash
+  aws s3api put-bucket-versioning --bucket kubernetes-aws-io --versioning-configuration Status=Enabled
+  ```
+   
+3) criar variavel **KOPS_STATE_STORE**
+
+  ```bash
+  export KOPS_STATE_STORE=s3://kubernetes-aws-io
+  ```
+
+4) Depois vamos passar os parametros para criar o cluster (no campo zones voce pode setar mais de uma availability zones ) :+1:
+
+```bash
+  kops create cluster \
+--name catsapi.kubernetes-aws.io \
+--zones us-east-1 \
+--state s3://kubernetes-aws-io \
+--master-size t2.medium --node-size t2.medium
+--master-count 1 --node-count 3
+--yes
+  ```
+5) E por fim voce aplica as configs  :sunglasses:
+   
+```bash
+kops upgrade cluster \
+--name catsapi.kubernetes-aws.io \
+--state s3://kubernetes-aws-io \
+--yes
+  ```
+... agora é só aguardar alguns instantes e *VOILÀ*  :ok_hand:
+
+<img src="fotos/k8snodes.png"
+     alt="aws-ec2"
+     style="float: left; margin-right: 10px;" />
 
 ## kubernetes 
 Utilizamos o kubernetes como nosso gerenciador de containers.
@@ -73,16 +114,48 @@ Utilizamos o kubernetes como nosso gerenciador de containers.
 
   ### Arquiterura Kubernetes 
 
-*4 Namsespaces (Prometheus, Grafana, Grafana, EFK, APP)
-*PersistentVolume ( EBS - GP2(ext4))
-*Storageclass ( cats-stc )
+* Namsespaces (Prometheus, Grafana, EFK, APP)
+ ```bash
+  kubectl create ns Prometheus
+  kubectl create ns Grafana
+  kubectl create ns EFK
+  kubectl create ns APP
+  ```
+  Para saber se formar criados com sucesso executado o comando
+    ```bash
+  kubectl get ns
+    ```
+    
+* PersistentVolume ( EBS - GP2(ext4)), basta acessa pasta *monitoring/storage* e executar o comando 
+  ```bash
+  kubectl apply -f pv-volume.yaml
+  ```
 
-Comandos Kubernetes para criar esses  
+  e verificar se foi criado com o comando 
+   ```bash
+  kubectl get pv
+  ```
+
+*  Storageclasse, basta acessa pasta *monitoring/storage* e executar o comando  ( cats-stc )
+
+   ```bash
+   kubectl apply -f pv-volume-storageclass.yaml
+   ```
 
 ## Helm Install
-Para cada aplicação da Stack de monitoração que foi utilizada utilizando apenas o kubernetes seria necessario criar 5 arquivos (deployment, service, configmap, pvc e um ingress). Isso demandaria muito tempo. Por este motivo escolhi utilizar a solução Helm aonde eu faço a instalação e o gerenciamento das aplicações de forma mais simplificada  
+Para cada aplicação da Stack de monitoração seria necessario criar 5 arquivos (deployment, service, configmap, pvc e um ingress) para cada solução. Isso demandaria muito tempo. Por este motivo escolhi utilizar a solução Helm aonde eu faço a instalação e o gerenciamento das aplicações de forma mais simplificada  
  
-comandos insta helm
+   ```bash
+   helm inspect stable/aplicação > aplicação.values
+   
+   helm install stable/aplicação --name nomeaplicação --values aplicação.values --namespace nomeDoNamespace
+   ```
+- Para listar os serviços instalado basta utilizar o comando *helm list*
+
+<img src="fotos/helm-list.png"
+     alt="HelmList"
+     style="float: left; margin-right: 10px;" />
+
 
 ## Deploy Stack Monitoring
 Uma forma de centralizar todos os Dashs e um unico ponto escolhi a solução grafana desta forma foi possivel criar os dash de monitoramento dos ambiente do Prometheus (coleta da saude do cluster) e para fazer a coleta dos logs tanto dos clustes como das aplicações foi escolhido a pilha EFK (Elasticsearch, fluentd, Kibana). Vale apena pontuar que mesmo a Kibanada está sendo usado para criar as queries usando KQL e aplicamos como data source no Grafana. 
