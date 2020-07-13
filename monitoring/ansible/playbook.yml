@@ -1,0 +1,40 @@
+- name: "Testing ansible-lint with invalid variable names"
+  hosts: 127.0.0.1
+  connection: local
+
+- name: Criando Maquinetas
+  hosts: localhost
+  connection: local
+  gather_facts: False
+  roles:
+  - maquinetas
+
+- name: refresh_inventory
+  hosts: localhost
+  gather_facts: False
+  tasks:
+    - meta: refresh_inventory
+
+- hosts: all
+  become: yes
+  user: ubuntu
+  gather_facts: no
+  pre_tasks:
+  - name: 'install python'
+    raw: 'apt-get -y install python'
+  roles:
+  - install_k8s
+
+- hosts: k8s-master-cats
+  become: yes
+  user: ubuntu
+  roles:
+  - create-cluster
+
+- hosts: k8s-workers-cats
+  become: yes
+  user: ubuntu
+  roles:
+  - join-workers
+
+
