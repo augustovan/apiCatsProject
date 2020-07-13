@@ -59,7 +59,7 @@ $ sudo docker-compose up -d --build nodejs-application-cats
 # Inicie o node e começe a consumir a API
 $ docker exec nodejs-application-cats node index.js
 ```
-### :electric_plug: Metodo para consulmo da API 
+### :electric_plug: Metodo para consumo da API 
 
 
 | URL                                      | Função                                           |
