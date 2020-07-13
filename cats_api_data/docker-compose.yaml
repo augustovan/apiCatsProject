@@ -1,0 +1,50 @@
+version: "3.4"
+services:
+  nodejs-application-cats: #docker run -it -v ${PWD}:/work -w /work -p 5002:5000 aimvector/nodejs:1.0.0 /bin/sh
+    container_name: nodejs-application-cats
+    image: augustovan/nodejs-application-cats:latest 
+    build:
+      context: ./
+      target: debug
+    volumes:
+    - ./:/work/
+    ports:
+      - 5001:5000
+      - 9229:9229            #debug port
+  prometheus:
+    container_name: prometheus-Cats
+    image: prom/prometheus
+    ports: 
+      - "9091:9090"
+    command: --config.file=/etc/prometheus/prometheus.yaml
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yaml
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_AUTH_BASIC_ENABLED=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
+  grafana-dashboards:
+    image: alpine:3.10
+    depends_on:
+      - grafana
+    volumes:
+      - ./grafana-data:/grafana
+    command: >
+      /bin/sh -c "
+        apk add --no-cache curl
+        echo 'waiting for grafana'
+        sleep 5s
+        cd /grafana
+        curl --request POST http://grafana:3000/api/datasources --header 'Content-Type: application/json' -d @datasources.json
+        curl --request POST http://grafana:3000/api/dashboards/db --header 'Content-Type: application/json' -d @dashboard.json"
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - /home/victor/Project/apiCatsProject/cats_api_data/mongo:/data/db
+

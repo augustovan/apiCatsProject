@@ -1,0 +1,21 @@
+{
+  "name": "cats_api_data",
+  "version": "1.0.0",
+  "description": "docker run -d  -p 2717:27017 -v /home/victor/Project/apiCatsProject/cats_api/mongo:/data/db --name mongocats mongo:latest",
+  "main": "apicats.js",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.23",
+    "prom-client": "^12.0.0",
+    "require-dir": "^1.2.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
