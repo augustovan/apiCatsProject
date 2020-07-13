@@ -27,7 +27,7 @@ origem, temperamento e descrição em uma base de dados. (disponivel na prox.rel
 
 ## :cloud: Technologies
 
-This project was developed at the [RocketSeat GoStack Bootcamp](https://rocketseat.com.br/bootcamp) with the following technologies:
+Este projeto foi desenvolvido com as seguintes tecnologias:
 
 
 -  [Axios](https://github.com/axios/axios), Para fazer o consumo na URL https://thecatapi.com/ 
