@@ -2,7 +2,7 @@
 /cats_api_data/node_modules/
 /cats_api/node_modules
 /cats_api
-/docker
+/monitoring/docker
 catsapi
 catsapi.pub
 apoio.txt
