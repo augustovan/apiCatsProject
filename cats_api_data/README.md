@@ -36,7 +36,6 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 -  [Mongoose](https://github.com/Automattic/mongoose) usado para fazer a conexão com base de dados Mongo.
 -  [Prom-client](https://github.com/siimon/prom-client) Para fazer a captura das metricas para monitoramento.
 
--  [VS Code][vc] with [EditorConfig][vceditconfig] and [ESLint][vceslint]
 
 
 
